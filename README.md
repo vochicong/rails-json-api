@@ -37,3 +37,62 @@ TODO: seeds で User と Post のテストデータを作成・保存
     rails s
     open http://localhost:3000/posts.json
     open http://localhost:3000/posts/1.json
+
+## API JSON format
+
+Postman で叩いてみて、現段階の request と response の key を 
+snake_case から camelCase に変えて API JSON format 仕様とする。
+
+### Create
+
+#### Request
+
+POST /users
+```json
+{
+    "fullName": "Michal Jackson",
+    "emailAddress": "michale@gmail.com"
+}
+```
+
+#### Response
+
+```json
+{
+    "id": 3,
+    "fullName": "Michal Jackson",
+    "emailAddress": "michale@gmail.com",
+    "createdAt": "2017-12-17T07:28:52.052Z",
+    "updatedAt": "2017-12-17T07:28:52.052Z",
+    "url": "http://localhost:3000/users/3.json"
+}
+```
+
+### Update
+
+#### Request
+
+PATCH/PUT /users/3
+```json
+{
+    "fullName": "Michale Jack",
+    "emailAddress": "jack@gmail.com"
+}
+```
+
+#### Response
+
+```json
+{
+    "id": 3,
+    "fullName": "Michale Jack",
+    "emailAddress": "jack@gmail.com",
+    "createdAt": "2017-12-17T07:28:52.052Z",
+    "updatedAt": "2017-12-17T07:33:53.010Z",
+    "url": "http://localhost:3000/users/3.json"
+}
+```
+
+## 参考
+
+- [Postman](https://www.getpostman.com/)
