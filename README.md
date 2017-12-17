@@ -23,3 +23,17 @@ JSON API では key として camelCase (fullName や emailAddress)を使う想�
     rails s
     open http://localhost:3000/users.json
     open http://localhost:3000/users/1.json
+
+Post を scaffold
+
+    rails generate scaffold post post_content:text user_id:integer
+    
+`rails c`で Post のデータを追加。
+
+TODO: seeds で User と Post のテストデータを作成・保存
+
+簡単に動いているかどうかを見る
+
+    rails s
+    open http://localhost:3000/posts.json
+    open http://localhost:3000/posts/1.json
