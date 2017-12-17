@@ -101,4 +101,6 @@ PATCH/PUT /users/3
 
 ## 参考
 
+- [Rails Hash#deep_transform_keys](http://api.rubyonrails.org/classes/Hash.html#method-i-deep_transform_keys-21)
+- [Jbuilder](https://github.com/rails/jbuilder)
 - [Postman](https://www.getpostman.com/)

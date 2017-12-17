@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :snakeize_params, only: [:create, :update]
   before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /users
