@@ -22,4 +22,4 @@ JSON API では key として camelCase (fullName や emailAddress)を使う想�
 
     rails s
     open http://localhost:3000/users.json
-    http://localhost:3000/users/1.json
+    open http://localhost:3000/users/1.json
