@@ -41,6 +41,8 @@ group :development do
 
   # awesome_print make the console output much more attractive
   gem 'awesome_print'
+
+  gem 'guard-rspec', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
