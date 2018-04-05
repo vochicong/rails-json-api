@@ -1,3 +1,6 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/6bc16f3bcc5522f2b685/maintainability)](https://codeclimate.com/github/vochicong/rails-json-api/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/6bc16f3bcc5522f2b685/test_coverage)](https://codeclimate.com/github/vochicong/rails-json-api/test_coverage)
+
 # README
 
 ## 作業手順
