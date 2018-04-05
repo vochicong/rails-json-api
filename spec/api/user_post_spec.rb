@@ -10,7 +10,8 @@ RSpec.describe UsersController, type: :request do
     params = params.deep_camelize
     post '/users', params: { user: params }, xhr: true
     expect(response.status).to eq 201
-    expect(JSON.parse(response.body)).to include(params)
+    expect(js_response).to include(params)
+    # expect(js_response[:fullName]).to eq(params[:fullName])
   end
   it 'updates user' do
     params = {
@@ -26,6 +27,6 @@ RSpec.describe UsersController, type: :request do
     params = params.deep_camelize
     put "/users/#{user.id}", params: { user: params }, xhr: true
     expect(response.status).to eq 200
-    expect(JSON.parse(response.body)).to include(params)
+    expect(js_response).to include(params)
   end
 end

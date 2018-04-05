@@ -46,7 +46,7 @@ RSpec のインストール（初期設定）
 
 ## API JSON format
 
-Postman で叩いてみて、現段階の request と response の key を 
+Postman で叩いてみて、現段階の request と response の key を
 snake_case から camelCase に変えて API JSON format 仕様とする。
 
 ### Create
@@ -99,8 +99,15 @@ PATCH/PUT /users/3
 }
 ```
 
+## API JSON testing
+
+JSON APIのRSpecでは`JSON.parse(response.body)`がよく発生するため、
+`js_response`で済むヘルパーを導入してみました。
+
 ## 参考
 
 - [Rails Hash#deep_transform_keys](http://api.rubyonrails.org/classes/Hash.html#method-i-deep_transform_keys-21)
 - [Jbuilder](https://github.com/rails/jbuilder)
 - [Postman](https://www.getpostman.com/)
+- [DRY-ing The JSON Response](http://aalvarez.me/blog/posts/testing-a-rails-api-with-rspec.html)
+- [Rails API Testing Best Practices](http://matthewlehner.net/rails-api-testing-guidelines/)
