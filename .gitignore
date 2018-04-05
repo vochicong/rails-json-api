@@ -18,3 +18,6 @@
 !/tmp/.keep
 
 .byebug_history
+
+# SimpleCove code coverage report
+coverage
