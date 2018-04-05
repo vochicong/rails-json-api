@@ -47,5 +47,13 @@ group :development do
   gem 'guard-rspec', require: false
 end
 
+group :test do
+  # RSpec results formatted as JUnit XML for CI
+  gem 'rspec_junit_formatter'
+
+  # Code Coverage
+  gem 'simplecov', require: false
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
