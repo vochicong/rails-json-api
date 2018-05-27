@@ -101,6 +101,22 @@ PATCH/PUT /users/3
 JSON APIのRSpecでは`JSON.parse(response.body)`がよく発生するため、
 `js_response`で済むヘルパーを導入してみました。
 
+## Manual testing
+
+
+Start Rails server
+
+    bin/rails db:migrate RAILS_ENV=development
+    rails s
+    
+Create users
+
+    curl http://localhost:3000/users -X POST -H "Content-Type: application/json" -d '{"fullName": "Michal Jackson", "emailAddress": "michale@gmail.com"}'
+
+Get users
+
+    curl http://localhost:3000/users
+
 ## 参考
 
 - [Rails Hash#deep_transform_keys](http://api.rubyonrails.org/classes/Hash.html#method-i-deep_transform_keys-21)
