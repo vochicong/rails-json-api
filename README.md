@@ -9,12 +9,6 @@ Rails APIアプリを新規作成
 
     rails new rails_api --api
 
-Gemfileを編集し必要な gem を追加・有効化してから `bundle` を実行。
-- jbuilder: JSONの出力
-- awesome_print: rails consoleで配列などを見やすく
-- rspec-rails
-- factory_bot_rails
-
 User を scaffold
 
     rails generate scaffold User full_name:string email_address:string
