@@ -1,7 +1,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/6bc16f3bcc5522f2b685/maintainability)](https://codeclimate.com/github/vochicong/rails-json-api/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/6bc16f3bcc5522f2b685/test_coverage)](https://codeclimate.com/github/vochicong/rails-json-api/test_coverage)
 
-# README
+# Rails API server
 
 ## 作業手順
 
@@ -108,7 +108,7 @@ Start Rails server
 
     bin/rails db:migrate RAILS_ENV=development
     rails s
-    
+
 Create users
 
     curl http://localhost:3000/users -X POST -H "Content-Type: application/json" -d '{"fullName": "Michal Jackson", "emailAddress": "michale@gmail.com"}'
@@ -124,3 +124,65 @@ Get users
 - [Postman](https://www.getpostman.com/)
 - [DRY-ing The JSON Response](http://aalvarez.me/blog/posts/testing-a-rails-api-with-rspec.html)
 - [Rails API Testing Best Practices](http://matthewlehner.net/rails-api-testing-guidelines/)
+
+# Rails encrypted credentials
+
+Rails 5.2 から `config/credentials.yml.enc` が導入され、混乱を招いている。
+`development`, `test` では環境変数を使って、`production` (または `staging`など)で
+`encrypted credentials` を使うニーズに手軽に対応するには、
+`config/environment.rb` にクラス `Env`を導入してみた。
+
+```ruby
+class Env
+  def self.method_missing(name, *default)
+    ENV[name.to_s] ||
+      default.first ||
+      Rails.application.credentials.send(name) ||
+      super
+  end
+
+  def self.respond_to_missing?(*)
+    true
+  end
+end
+```
+
+## 使い方
+
+システム構成情報は、環境変数または`config/credentials.yml.enc`に設定する。
+`Env.APP_CONFIG` は `APP_CONFIG` をまず
+環境変数 `ENV` から探して、未設定の場合に `encrypted credentials` から探す。
+引数にデフォルトの値が与えられたら、`encrypted credentials` からは探さない。
+
+## 例
+
+### config/credentials.yml.enc の内容確認
+
+    $ RAILS_MASTER_KEY=289e1431050b365b62bb5917acabcc53 rails credentials:show
+    secret_key_base: 2105bc31227a27f81b901582a8bb43b35bebea2b9c3572b024184a0b06dad26fc3bb312fbc5a7069783798d22f55cf4f411ae19169dd2a78026dccfbbdc889d7
+    APP_CONFIG: encryptedConfig
+
+### 環境変数が未定義の場合、デフォルト値が使われる
+
+    $ rails runner 'puts Env.APP_CONFIG("default")'
+    default
+
+### 環境変数がデフォルト値よりも優先される
+
+    $ APP_CONFIG=envVar rails runner 'puts Env.APP_CONFIG("default")'
+    envVar
+
+### 環境変数が、`encrypted credentials` よりも優先される
+
+    $ RAILS_MASTER_KEY=289e1431050b365b62bb5917acabcc53 APP_CONFIG=envVar rails runner 'puts Env.APP_CONFIG("default")'
+    envVar
+
+### デフォルト値が `encrypted credentials` よりも優先される
+
+    $ RAILS_MASTER_KEY=289e1431050b365b62bb5917acabcc53 rails runner 'puts Env.APP_CONFIG("default")'
+    default
+
+### 環境変数もデフォルト値も未定義の場合、`encrypted credentials` が使われる
+
+    $ RAILS_MASTER_KEY=289e1431050b365b62bb5917acabcc53 rails runner 'puts Env.APP_CONFIG'
+    encryptedConfig
